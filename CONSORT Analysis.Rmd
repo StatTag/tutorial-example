@@ -1,0 +1,90 @@
+---
+title: 'Data Safety Monitoring Report for STU000201005, A Randomized Controlled Trial of Drug XYZ Among Adults'
+geometry: margin=.75in
+output: html_document
+sansfont: Calibri Light
+fontsize: 11pt
+---
+
+<style type="text/css">
+h1.title {
+  font-size: 11pt;
+  font-weight: bold;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tableone)
+library(knitr)
+options(digits=2)
+
+ID <- c(1001,1002,1003,1004,1005,1006,1007,1008,1009,1010) 
+Sex <- c("Male","Female","Male","Male","Female","Male","Female","Female","Female","Male") 
+Age <- c(55,45,64,56,43,63,59,62,51,49) 
+Screen <- c(1,1,1,1,1,1,1,1,1,0)
+Randomize <-c(1,0,1,1,1,0,1,1,1,NA)
+Treatment <- c(0,NA,0,1,1,NA,1,0,0,NA)
+
+Enrollment <- data.frame(ID,Sex,Age,Screen,Randomize,Treatment) 
+```
+
+\usepackage[utf8]
+
+**Principal Investigator:** Mary Smith, MD
+
+**Protocol Synopsis:** This is a randomized controlled trial comparing the safety of Drug XYZ among adult participants. The primary outcome is any occurence of pre-specified Adverse Events (AEs) or Serious Adverse Events (SAEs).
+
+**Study Status:** The study is currently open to enrollment.   
+Study Inititation: July 28, 2016.   
+Date of Report: `r format(Sys.Date(), '%B %d, %Y')`  
+
+```{r, echo=FALSE}
+#Enrollment <- subset(Enrollment, Enrollment$ID != 1007)
+#Enrollment <- subset(Enrollment, Enrollment$ID != 1003)
+
+#1. No. Patients Identified for Screening
+enrolled <- nrow(Enrollment)
+
+#2. No. Patients screened
+screened <- sum(na.omit(Enrollment$Screen) == 1)
+
+#3. No. Patients Pending screening
+notscreened <-  sum(na.omit(Enrollment$Screen) == 0)
+
+#4. No. Patients Randomized
+randomized <- sum(na.omit(Enrollment$Randomize) == 1)
+
+#5. No. Patients Pending Randomization
+notrandomicated <- sum(na.omit(Enrollment$Randomize) == 0)
+
+#6. No. Patients in Treatment Group
+treatment <- sum(na.omit(Enrollment$Treatment) == 1)
+
+#7. No. Patients in Control Group
+control <- sum(na.omit(Enrollment$Treatment) == 0)
+```
+**Recruitment and Participant Status:**   
+Participants Consented: `r enrolled`  
+Participants Screened: `r screened`  
+Participants Randomized: `r randomized`  
+Participants In Treatment Group: `r treatment`  
+Participants in Control Group: `r control`  
+
+```{r, echo=FALSE}
+#Create descriptives table of age and gender by treatment group
+TableOne <- CreateTableOne(data = Enrollment, vars=c("Sex","Age"), strata= "Treatment")
+Table1 <- print(TableOne, quote = FALSE, noSpaces = TRUE, printToggle = FALSE, test=FALSE,explain=FALSE,showAllLevels = TRUE)
+```
+
+**Table 1.** Participant Characteristics
+```{r, echo=FALSE, comment=NA, size = 'tiny'}
+#8. Output Table 1
+knitr::kable(Table1)
+```
+
+**Particiants Pending Screening:** The following particiapnts are pending screening.
+```{r, echo=FALSE}
+#9. Print list of patients pending screening
+print(Enrollment[Enrollment$Screen == 0,1])
+```
