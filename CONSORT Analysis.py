@@ -19,26 +19,26 @@ enrollment = enrollment[enrollment.ID != 1003]
 len(enrollment)
 
 #2. No. Patients screened
-enrollment[enrollment.Screen == 1].count()["ID"]
+enrollment[enrollment.Screen == 1].count()["ID"].item()
 
 #3. No. Patients Pending screening
-enrollment[enrollment.Screen == 0].count()["ID"]
+enrollment[enrollment.Screen == 0].count()["ID"].item()
 
 #4. No. Patients Randomized
-enrollment[enrollment.Randomize == 1].count()["ID"]
+enrollment[enrollment.Randomize == 1].count()["ID"].item()
 
 #5. No. Patients Pending Randomization
-enrollment[enrollment.Randomize == 0].count()["ID"]
+enrollment[enrollment.Randomize == 0].count()["ID"].item()
 
 #6. No. Patients in Treatment Group
-enrollment[enrollment.Treatment == 1].count()["ID"]
+enrollment[enrollment.Treatment == 1].count()["ID"].item()
 
 #7. No. Patients in Control Group
-enrollment[enrollment.Treatment == 0].count()["ID"]
+enrollment[enrollment.Treatment == 0].count()["ID"].item()
 
 # Create descriptives table of age and gender by treatment group
 from tableone import TableOne
-table1 = TableOne(enrollment, ["Sex", "Age"], None, "Treatment", None)
+table1 = TableOne(data=enrollment, columns=["Sex", "Age"], categorical=None, groupby="Treatment", nonnormal=None)
 
 #8. Output Table 1
 table1
