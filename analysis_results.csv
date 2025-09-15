@@ -1,0 +1,7 @@
+Sex,Freq,Percent,Treatment,Age_Mean,Age_StdDev
+Female,4,57.14,0,,
+Male,3,42.86,0,,
+Female,2,66.67,1,,
+Male,1,33.33,1,,
+,,,0,58.75,7.99
+,,,1,46.00,6.56
