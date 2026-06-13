@@ -1,0 +1,18 @@
+{
+  "_captured_run_id": "r_019ec1bee97a7941b4d1eb71ee2b8c8e",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "The FREQ Procedure",
+    "The MEANS Procedure",
+    "PROC PRINT completed: 1 observations printed"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}
