@@ -1,0 +1,8 @@
+{
+  "bundle": "t001_consort_enrollment_summary",
+  "source_file": "CONSORT Analysis.sas",
+  "source_blob_sha": "fdc90888e8d779e5f6519b671ec5b7c6ee356f56",
+  "source_commit": "c8141bea320bd3509adcd137579b294ce0b95e11",
+  "tier": "real_data",
+  "notes": "CONSORT enrollment summary from the author's CONSORT Analysis.sas, run verbatim on its own inline DATALINES: patient count (attrn/open), PROC FREQ screen/randomize/treatment + Sex*Treatment crosstab, PROC MEANS age by treatment, and the pending-screening PROC PRINT. The two `ods output`=dataset capture lines and the downstream Table 1 transpose/assembly were omitted from this bundle (deployed API v0.1.0 does not yet materialize PROC FREQ/MEANS ODS OUTPUT datasets; tracked by set/ gap tests 305100 + 101618). The FREQ/MEANS computations themselves are byte-identical to the author's."
+}
